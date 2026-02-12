@@ -4,7 +4,7 @@ workflows:
     max_build_duration: 60
     
     environment:
-      node: 22.11.0  # ✅ Updated to 22
+      node: 22.11.0
       npm: 10
     
     scripts:
@@ -17,7 +17,8 @@ workflows:
       - name: Setup Capacitor Android
         script: |
           npm install @capacitor/core @capacitor/cli @capacitor/android
-          npx cap init AhmadAI com.ahmad.ai --web-dir dist --npm-client npm
+          # ✅ Fixed: Removed --npm-client, added --web-dir, proper appId
+          npx cap init AhmadAI com.ahmad.ai --web-dir dist
           npx cap add android
           npx cap sync
           
