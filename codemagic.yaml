@@ -6,6 +6,7 @@ workflows:
     environment:
       node: 22.11.0
       npm: 10
+      java: 21  # ✅ Added Java 21
     
     scripts:
       - name: Install dependencies
@@ -17,7 +18,6 @@ workflows:
       - name: Setup Capacitor Android
         script: |
           npm install @capacitor/core @capacitor/cli @capacitor/android
-          # ✅ Fixed: Removed --npm-client, added --web-dir, proper appId
           npx cap init AhmadAI com.ahmad.ai --web-dir dist
           npx cap add android
           npx cap sync
