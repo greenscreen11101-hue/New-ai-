@@ -9,7 +9,7 @@ workflows:
     
     scripts:
       - name: Install dependencies
-        script: npm ci
+        script: npm install  # ✅ Changed from npm ci
         
       - name: Build web assets
         script: npm run build
