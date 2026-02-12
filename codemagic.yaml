@@ -6,7 +6,10 @@ workflows:
     environment:
       node: 22.11.0
       npm: 10
-      java: 21  # ✅ Added Java 21
+      java: 21
+      # ✅ Keystore setup
+      android_signing:
+        - ahmad_ai_keystore
     
     scripts:
       - name: Install dependencies
@@ -22,13 +25,13 @@ workflows:
           npx cap add android
           npx cap sync
           
-      - name: Build Release APK
+      - name: Build Signed APK
         script: |
           cd android
-          ./gradlew assembleRelease
+          ./gradlew assembleRelease  # ✅ Signed build
     
     artifacts:
-      - android/app/build/outputs/apk/release/*.apk
+      - android/app/build/outputs/apk/release/*-signed.apk  # ✅ Signed only
     
     publishing:
       email:
