@@ -1,0 +1,39 @@
+workflows:
+  ahmad-ai-apk:
+    name: Build Ahmad AI APK
+    max_build_duration: 45
+    instance_type: linux_x2
+    
+    environment:
+      node: 18.17.0
+      npm: 9
+    
+    scripts:
+      - name: Install dependencies
+        script: npm ci
+        
+      - name: Build web assets
+        script: npm run build
+        
+      - name: Setup Capacitor Android
+        script: |
+          npm install @capacitor/core @capacitor/cli @capacitor/android
+          npx cap init AhmadAI com.ahmad.ai --web-dir dist --npm-client npm
+          npx cap add android
+          npx cap sync
+          
+      - name: Build Release APK
+        script: |
+          cd android
+          ./gradlew assembleRelease
+    
+    artifacts:
+      - android/app/build/outputs/apk/release/*.apk
+    
+    publishing:
+      email:
+        recipients:
+          - your-email@gmail.com
+        notify:
+          success: true
+          failure: true
